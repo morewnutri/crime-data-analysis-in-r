@@ -1,0 +1,43 @@
+---
+title: "browns method for crime data"
+author: "Wu Haitao"
+date: "3/28/2020"
+output:
+  word_document: default
+  html_document: default
+---
+
+
+
+
+```{r }
+# 1. data input
+fulldata <- read.csv("~/Desktop/c.csv")
+bsc <- ts(fulldata$street.crime,frequency = 4)
+bsc
+bsct <- window(bsc,end = c(14))#training data
+bsct
+bscf <- window(bsc,start= c(14))#testing data
+bscf
+```
+
+
+
+```{r }
+# 2. simple exponential smoothing
+library(forecast)
+brownsimple <-ses(bsct,h=12)#ses=simple exponential smoothing
+plot(brownsimple,main = "brwon simple exponential smoothing",ylab = "street crime",xlab = "time series")
+lines(bscf,lty =3)#adding data in testing range
+```
+
+
+```{r }
+# 3. browns model
+brownsc <- ets(bsct,model = "AAA")
+plot(brownsc)
+autoplot(forecast::forecast(brownsc))
+
+```
+
+

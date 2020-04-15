@@ -1,0 +1,72 @@
+---
+title: "holt winter"
+author: "Wu Haitao"
+date: "3/27/2020"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+---
+
+```{r }
+library('ggplot2')
+library('forecast')
+library('tseries')
+
+```
+
+
+
+```{r }
+# 1. plot street crime data as time series
+fulldata <- read.csv("~/Desktop/c.csv")
+scdata = ts(fulldata$street.crime,start = c(1),frequency = 4)
+plot(scdata, xlab='Years', ylab = 'street crime')
+```
+
+
+
+```{r }
+# 2. Difference data to make data stationary on mean (remove trend)
+plot(diff(scdata),ylab='Differenced street crime')
+# 3. log transform data to make data stationary on variance
+plot(log10(scdata),ylab='Log (street crime)')
+# 4. Difference log transform data to make data stationary on both mean and variance
+plot(diff(log10(scdata)),ylab='Differenced Log (street crime)')
+```
+
+```{r }
+# 5. Plot ACF and PACF to identify potential AR(autoregressive) and MA(moving average) model
+par(mfrow = c(1,2))
+acf(ts(diff(log10(scdata))),main='ACF street crime')
+pacf(ts(diff(log10(scdata))),main='PACF street crime')
+```
+
+
+
+```{r }
+# 6. Identification of best fit ARIMA model
+require(forecast)
+ARIMAfit = auto.arima(log10(scdata), approximation=FALSE,trace=FALSE)
+summary(ARIMAfit)
+```
+
+```{r }
+# 7.Forecast street crime using the best fit ARIMA model
+par(mfrow = c(1,1))
+pred = predict(ARIMAfit, n.ahead = 4)
+pred
+plot(scdata,type='l',xlim=c(1,20),ylim=c(1,40000),xlab = 'Year',ylab = 'street crime')
+lines(10^(pred$pred),col='blue')
+lines(10^(pred$pred+2*pred$se),col='orange')
+lines(10^(pred$pred-2*pred$se),col='orange')
+```
+
+
+
+```{r }
+# 8. Plot ACF and PACF for residuals of ARIMA model to ensure no more information is left for extraction
+par(mfrow=c(1,2))
+acf(ts(ARIMAfit$residuals),main='ACF Residual')
+pacf(ts(ARIMAfit$residuals),main='PACF Residual') 
+```

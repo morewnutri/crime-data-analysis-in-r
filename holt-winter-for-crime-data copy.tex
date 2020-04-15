@@ -1,0 +1,440 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={holt winter for crime data},
+            pdfauthor={Wu Haitao},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{holt winter for crime data}
+\author{Wu Haitao}
+\date{3/28/2020}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#1.1 check frequancy}
+\KeywordTok{library}\NormalTok{(TSA)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'TSA'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     acf, arima
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:utils':
+## 
+##     tar
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fulldata <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"~/Desktop/c.csv"}\NormalTok{)}
+\KeywordTok{periodogram}\NormalTok{(fulldata}\OperatorTok{$}\NormalTok{street.crime)}\CommentTok{#The above periodogram plot is to identify the dominant periods(or frequncies) of a time series. From this plot, the time period is identified as 0.25 and the frequency is calculated as 1/0.25 = 4. Therefore, we can conclude that the behaviour in the series is quarterly}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{holt-winter-for-crime-data_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{streetcrime.ts <-}\StringTok{ }\KeywordTok{ts}\NormalTok{(fulldata}\OperatorTok{$}\NormalTok{street.crime, }\DataTypeTok{frequency =} \DecValTok{4}\NormalTok{, }\DataTypeTok{start =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{))}
+\NormalTok{streetcrime.ts}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     Qtr1  Qtr2  Qtr3  Qtr4
+## 1   4784  9702 14939 21268
+## 2   5979 14305 24281 35467
+## 3   9086 18623 26806 35891
+## 4   6760 13119 18915 25352
+## 5   5155 10287 15050 19935
+## 6   3695  7736 11739 16625
+## 7   3248  7252 10935 15486
+## 8   3376  7602 11522 15704
+## 9   3415  7593 11339 16039
+## 10  3383  7043 10833 15212
+## 11  3883  7983 11915 16349
+## 12  3307  6918 10918 15581
+## 13  3235  6829 10509 14100
+## 14  3026  6341  9558 13219
+## 15  2900  5979  9222 12780
+## 16  2673  6059  9198 12101
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#1.2 making as time series}
+\KeywordTok{plot.ts}\NormalTok{(streetcrime.ts,}\DataTypeTok{main =} \StringTok{"Timeseries of street crime"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}\CommentTok{#plotting time series }
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{reg =} \KeywordTok{lm}\NormalTok{(streetcrime.ts}\OperatorTok{~}\KeywordTok{time}\NormalTok{(streetcrime.ts)))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{holt-winter-for-crime-data_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#1.3 check stationary}
+\KeywordTok{library}\NormalTok{(aTSA)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'aTSA'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:graphics':
+## 
+##     identify
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tseries)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Registered S3 method overwritten by 'quantmod':
+##   method            from
+##   as.zoo.data.frame zoo
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'tseries'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:aTSA':
+## 
+##     adf.test, kpss.test, pp.test
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{acf}\NormalTok{(streetcrime.ts,}\DataTypeTok{main =} \StringTok{'street crime'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{holt-winter-for-crime-data_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{kpss.test}\NormalTok{(streetcrime.ts)}\CommentTok{#accorfing to the test,data is not stationary}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in kpss.test(streetcrime.ts): p-value smaller than printed p-value
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  KPSS Test for Level Stationarity
+## 
+## data:  streetcrime.ts
+## KPSS Level = 0.91761, Truncation lag parameter = 3, p-value = 0.01
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{stationary.test}\NormalTok{(streetcrime.ts,}\DataTypeTok{method =} \KeywordTok{c}\NormalTok{(}\StringTok{"pp"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Phillips-Perron Unit Root Test 
+## alternative: stationary 
+##  
+## Type 1: no drift no trend 
+##  lag Z_rho p.value
+##    3  -6.8  0.0713
+## ----- 
+##  Type 2: with drift no trend 
+##  lag Z_rho p.value
+##    3 -46.3    0.01
+## ----- 
+##  Type 3: with drift and trend 
+##  lag Z_rho p.value
+##    3 -49.4    0.01
+## --------------- 
+## Note: p-value = 0.01 means p.value <= 0.01
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#1.4 applying holt winter model}
+\KeywordTok{library}\NormalTok{(forecast)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Registered S3 methods overwritten by 'forecast':
+##   method       from
+##   fitted.Arima TSA 
+##   plot.Arima   TSA
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'forecast'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:aTSA':
+## 
+##     forecast
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit <-}\StringTok{ }\KeywordTok{hw}\NormalTok{(streetcrime.ts,}\DataTypeTok{seasonal =} \StringTok{"additive"}\NormalTok{)}\CommentTok{#predicted value}
+\NormalTok{fit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Point Forecast      Lo 80     Hi 80      Lo 95     Hi 95
+## 17 Q1       2413.560 -1111.6589  5938.779 -2977.7970  7804.917
+## 17 Q2       5666.508  1878.3677  9454.648  -126.9525 11459.968
+## 17 Q3       8702.504  4534.3523 12870.655  2327.8662 15077.141
+## 17 Q4      11728.154  7064.9320 16391.375  4596.3715 18859.936
+## 18 Q1       2040.714 -4748.1227  8829.550 -8341.9155 12423.343
+## 18 Q2       5293.661 -2048.1267 12635.449 -5934.6345 16521.957
+## 18 Q3       8329.658   341.6577 16317.657 -3886.9339 20546.249
+## 18 Q4      11355.307  2634.3448 20076.270 -1982.2539 24692.869
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{fitted}\NormalTok{ (fit)}\CommentTok{#The data is smoothed by applying Holt-Winter’s additive method.Above is the smoothed or predicted values of the given data.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          Qtr1       Qtr2       Qtr3       Qtr4
+## 1   4589.9011 10796.2499 16424.6050 22469.8336
+## 2   8217.1838 12198.1284 18207.7980 27145.2407
+## 3  16380.0344 22867.0565 30100.7385 37227.3332
+## 4  10979.4607 19215.5922 25083.2137 30970.0566
+## 5   -779.2913  7916.6905 15870.6059 23901.8653
+## 6   1150.6133  6346.4072 11672.7531 17744.6440
+## 7    717.1527  5379.4694 10247.1889 16060.3434
+## 8   2223.3043  6329.6018 10437.7450 15768.6707
+## 9   3645.5287  7636.4087 11299.9707 15482.4761
+## 10  3456.5726  7673.5277 11212.1960 15584.9773
+## 11  2695.6392  6869.6038 11252.3163 16194.0165
+## 12  4873.5703  8223.5177 11372.7020 15310.9354
+## 13  2502.5627  6635.9292 10900.0342 15449.3975
+## 14  2411.0547  6035.7143  9838.1224 13672.0577
+## 15  2303.3267  5720.6976  9107.8707 12986.8682
+## 16  2508.2044  5592.7652  8992.8669 12734.6365
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fitted <-}\StringTok{ }\KeywordTok{fitted}\NormalTok{(fit)}
+\NormalTok{fitted}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          Qtr1       Qtr2       Qtr3       Qtr4
+## 1   4589.9011 10796.2499 16424.6050 22469.8336
+## 2   8217.1838 12198.1284 18207.7980 27145.2407
+## 3  16380.0344 22867.0565 30100.7385 37227.3332
+## 4  10979.4607 19215.5922 25083.2137 30970.0566
+## 5   -779.2913  7916.6905 15870.6059 23901.8653
+## 6   1150.6133  6346.4072 11672.7531 17744.6440
+## 7    717.1527  5379.4694 10247.1889 16060.3434
+## 8   2223.3043  6329.6018 10437.7450 15768.6707
+## 9   3645.5287  7636.4087 11299.9707 15482.4761
+## 10  3456.5726  7673.5277 11212.1960 15584.9773
+## 11  2695.6392  6869.6038 11252.3163 16194.0165
+## 12  4873.5703  8223.5177 11372.7020 15310.9354
+## 13  2502.5627  6635.9292 10900.0342 15449.3975
+## 14  2411.0547  6035.7143  9838.1224 13672.0577
+## 15  2303.3267  5720.6976  9107.8707 12986.8682
+## 16  2508.2044  5592.7652  8992.8669 12734.6365
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot.ts}\NormalTok{(streetcrime.ts,}\DataTypeTok{main =} \StringTok{"Smoothed Timeseries of street crime"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(}\KeywordTok{fitted}\NormalTok{(fit),}\DataTypeTok{col =} \StringTok{"red"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{holt-winter-for-crime-data_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit}\OperatorTok{$}\NormalTok{model}\CommentTok{#estmate of model parameter}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Holt-Winters' additive method 
+## 
+## Call:
+##  hw(y = streetcrime.ts, seasonal = "additive") 
+## 
+##   Smoothing parameters:
+##     alpha = 0.2935 
+##     beta  = 0.0999 
+##     gamma = 0.7065 
+## 
+##   Initial states:
+##     l = 10630.6035 
+##     b = 1302.5497 
+##     s = 7638.013 2221.042 -2515.803 -7343.252
+## 
+##   sigma:  2750.743
+## 
+##      AIC     AICc      BIC 
+## 1289.335 1292.668 1308.765
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#1.5 forecast}
+\KeywordTok{library}\NormalTok{(forecast)}
+\KeywordTok{autoplot}\NormalTok{(forecast}\OperatorTok{::}\KeywordTok{forecast}\NormalTok{(fit,}\DataTypeTok{h=}\DecValTok{8}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{holt-winter-for-crime-data_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#1.6 Decomposing the additive time series data}
+\NormalTok{states <-}\StringTok{ }\NormalTok{fit}\OperatorTok{$}\NormalTok{model}\OperatorTok{$}\NormalTok{states[,}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{]}
+\KeywordTok{colnames}\NormalTok{(states) <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(}\StringTok{'Level'}\NormalTok{,}\StringTok{'Trend'}\NormalTok{,}\StringTok{'Seasonality'}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(states,}\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{, }\DataTypeTok{main =} \StringTok{"Decompostion of time series"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{holt-winter-for-crime-data_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#1.7 measuring accuracy}
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(fit))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{holt-winter-for-crime-data_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\end{document}
